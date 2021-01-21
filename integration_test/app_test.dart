@@ -7,10 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'package:studying_bloc_cubit/main.dart' as app;
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Counter increments smoke test', (tester) async {
     // Build our app and trigger a frame.
     app.main();
@@ -18,16 +20,17 @@ void main() {
     // Trigger a frame.
     await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    var cityTextField = find.byKey(Key('city-field')).first;
+    var searchIcon = find.byKey(Key('submit'));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(searchIcon, findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.enterText(cityTextField, 'City');
+    await tester.pumpAndSettle();
+
+    await tester.tap(searchIcon);
+    await tester.pumpAndSettle();
+
+    expect(find.text('25.5 °C'), findsOneWidget);
   });
 }

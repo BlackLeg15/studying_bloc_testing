@@ -73,19 +73,27 @@ void submitCityName(BuildContext context, String cityName) {
   //bloc.close();
 }
 
+var cityName = '';
+
 class CityInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: TextField(
+        key: Key("city-field"),
         maxLength: 5,
         onSubmitted: (value) => submitCityName(context, value),
         textInputAction: TextInputAction.search,
+        onChanged: (value) => cityName = value,
         decoration: InputDecoration(
           hintText: "Digite o nome de uma cidade",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: InkWell(
+            key: Key('submit'),
+            child: Icon(Icons.search),
+            onTap: () => submitCityName(context, cityName),
+          ),
         ),
       ),
     );

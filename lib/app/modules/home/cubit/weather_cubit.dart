@@ -10,6 +10,8 @@ class WeatherCubit extends Cubit<WeatherState> {
     emit(LoadingState());
     Future.delayed(Duration(seconds: 5)).then((value) {
       emit(LoadedState(Weather(cityName, 25.5)));
-    }).catchError(() => emit(ErrorState("Refutado, otário")));
+    }).catchError((e) {
+      emit(ErrorState("Refutado, otário"));
+    });
   }
 }
