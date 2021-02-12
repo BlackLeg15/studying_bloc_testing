@@ -10,7 +10,8 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter + Bloc + Cubit',
       theme: ThemeData(
-        textSelectionHandleColor: Colors.grey,
+        textSelectionTheme:
+            TextSelectionThemeData(selectionHandleColor: Colors.grey),
       ),
       home: BlocProvider(
         child: HomePage(),
