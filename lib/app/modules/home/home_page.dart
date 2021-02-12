@@ -71,6 +71,12 @@ void submitCityName(BuildContext context, String cityName) {
   //final bloc = BlocProvider.of<WeatherBloc>(context);
   //bloc.add(GetWeather(cityName));
   //bloc.close();
+  /*
+    Segundo o próprio criador do Bloc, 
+    não é necessário fazer o cubit.close()
+    pois o BlocProvider faz isso por mim:
+    https://github.com/felangel/bloc/issues/1942#issuecomment-729694916
+  */
 }
 
 var cityName = '';
