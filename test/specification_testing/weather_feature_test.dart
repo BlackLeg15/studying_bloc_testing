@@ -8,7 +8,7 @@ class WeatherBlocMock extends MockBloc<WeatherEvent, WeatherState>
 
 main() {
   var weatherBloc;
-  const loadedWeather = const Weather('Jardim de Piranhas', 19.9);
+  const loadedWeather = Weather('Jardim de Piranhas', 19.9);
   setUpAll(() {
     weatherBloc = WeatherBlocMock();
   });
