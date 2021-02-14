@@ -1,6 +1,6 @@
 # studying_bloc_cubit
 
-A new Flutter project.
+Repository created to explore testing for Bloc and Cubit
 
 ## Getting Started
 
