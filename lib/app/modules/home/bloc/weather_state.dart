@@ -5,10 +5,6 @@ abstract class WeatherState {
   const WeatherState();
 }
 
-class WeatherInitial extends WeatherState {
-  const WeatherInitial();
-}
-
 class InitialState extends WeatherState {
   const InitialState();
 }
