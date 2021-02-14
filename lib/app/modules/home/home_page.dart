@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Studying Bloc & Cubit"),
+        title: const Text("Studying Bloc & Cubit"),
       ),
       body: Center(
         child: BlocBuilder<WeatherCubit, WeatherState>(
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             } else if (state is LoadedState)
               return buildColumnWithData(state.weather);
             else if (state is LoadingState)
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             else {
               return buildInitialInput();
             }
@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildInitialInput() => Center(
-        child: CityInputField(),
+  Widget buildInitialInput() => const Center(
+        child: const CityInputField(),
       );
   Column buildColumnWithData(Weather weather) {
     return Column(
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           "${weather.temperatureInCelsius.toStringAsFixed(1)} °C",
           style: TextStyle(fontSize: 80),
         ),
-        CityInputField(),
+        const CityInputField(),
       ],
     );
   }
@@ -82,12 +82,13 @@ void submitCityName(BuildContext context, String cityName) {
 var cityName = '';
 
 class CityInputField extends StatelessWidget {
+  const CityInputField();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: TextField(
-        key: Key("city-field"),
+        key: const Key("city-field"),
         maxLength: 5,
         onSubmitted: (value) => submitCityName(context, value),
         textInputAction: TextInputAction.search,
@@ -96,8 +97,8 @@ class CityInputField extends StatelessWidget {
           hintText: "Digite o nome de uma cidade",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           suffixIcon: InkWell(
-            key: Key('submit'),
-            child: Icon(Icons.search),
+            key: const Key('submit'),
+            child: const Icon(Icons.search),
             onTap: () => submitCityName(context, cityName),
           ),
         ),
