@@ -8,32 +8,56 @@ class WeatherBlocMock extends MockBloc<WeatherEvent, WeatherState>
 
 main() {
   var weatherBloc;
-  const loadedWeather = Weather('Jardim de Piranhas', 19.9);
+  var loadedWeather = Weather('Jardim de Piranhas', 19.9);
   setUpAll(() {
     weatherBloc = WeatherBlocMock();
   });
+
+  test('Apenas um teste inicial', () async {
+    whenListen(
+        weatherBloc,
+        Stream.fromIterable(
+          [const LoadingState(), LoadedState(loadedWeather)],
+        ));
+    //expect(weatherBloc.state, isA<InitialState>());
+    await expectLater(
+      weatherBloc,
+      emitsInOrder(
+        <WeatherState>[const LoadingState(), LoadedState(loadedWeather)],
+      ),
+    );
+    //expect(weatherBloc.state, isA<LoadedState>());
+  });
   group(
-    'Testa o caso de uso: Retornar uma temperatura a partir do nome de uma cidade',
+    'Caso de uso: Retornar uma temperatura a partir do nome de uma cidade',
     () {
-      test('A partir de uma string vazia, não retorna nada', () async {
-        whenListen(
-            weatherBloc,
-            Stream.fromIterable(
-              [const LoadingState(), const LoadedState(loadedWeather)],
-            ));
-        //expect(weatherBloc.state, isA<WeatherInitial>());
-        await expectLater(
-          weatherBloc,
-          emitsInOrder(
-            <WeatherState>[
-              const LoadingState(),
-              const LoadedState(loadedWeather)
-            ],
-          ),
-        );
-        //expect(weatherBloc.state, isA<LoadedState>());
-      });
-      test('A partir de um null, não retorna nada', () {});
+      blocTest(
+        '0. Teste do estado inicial',
+        build: () => WeatherBloc(),
+        expect: () => [],
+      );
+      blocTest(
+        '1. A partir de uma string vazia, retorna erro',
+        build: () => WeatherBloc(),
+        act: (bloc) {
+          (bloc as WeatherBloc).add(GetWeather(''));
+        },
+        expect: () => [
+          isA<LoadingState>(),
+          ErrorState('Erro: Campo nome da cidade não foi preenchido')
+        ],
+      );
+      blocTest(
+        '2. A partir de uma string nula, retorna erro',
+        build: () => WeatherBloc(),
+        act: (bloc) {
+          (bloc as WeatherBloc).add(GetWeather(null));
+        },
+        expect: () => [
+          isA<LoadingState>(),
+          ErrorState('Erro: Campo nome da cidade não foi preenchido')
+        ],
+      );
     },
   );
 }

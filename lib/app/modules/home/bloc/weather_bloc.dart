@@ -8,16 +8,20 @@ part 'weather_event.dart';
 part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc() : super(WeatherInitial());
+  WeatherBloc() : super(InitialState());
 
   @override
   Stream<WeatherState> mapEventToState(
     WeatherEvent event,
   ) async* {
+    yield const LoadingState();
     if (event is GetWeather) {
-      yield LoadingState();
       await Future.delayed(Duration(seconds: 2));
-      yield LoadedState(Weather(event.cityName, 19.9));
+      if (event.cityName == null || event.cityName.isEmpty) {
+        yield ErrorState('Erro: Campo nome da cidade não foi preenchido');
+      } else {
+        yield LoadedState(Weather(event.cityName, 19.9));
+      }
     }
   }
 }
