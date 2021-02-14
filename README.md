@@ -1,6 +1,10 @@
 # studying_bloc_cubit
 
-Repository created to explore testing for Bloc and Cubit
+Repository created to explore testing for Bloc and Cubit.
+
+WARNING:
+- Created from flutter's beta channel. 
+- Null safety is on.
 
 ## Getting Started
 
