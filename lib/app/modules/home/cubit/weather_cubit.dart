@@ -6,12 +6,12 @@ import 'weather_state.dart';
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(InitialState());
 
-  void getWeather(String cityName) {
+  void getWeather(String cityName) async {
     emit(LoadingState());
-    Future.delayed(Duration(seconds: 5)).then((value) {
+    await Future.delayed(Duration(seconds: 5));
+    if (cityName.isEmpty)
+      emit(ErrorState('Erro: Campo nome da cidade não foi preenchido'));
+    else
       emit(LoadedState(Weather(cityName, 25.5)));
-    }).catchError((e) {
-      emit(ErrorState("Refutado, otário"));
-    });
   }
 }

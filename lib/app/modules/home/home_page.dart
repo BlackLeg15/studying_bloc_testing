@@ -22,8 +22,13 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Studying Bloc & Cubit"),
       ),
       body: Center(
-        child: BlocBuilder<WeatherCubit, WeatherState>(
+        child: BlocConsumer<WeatherCubit, WeatherState>(
           //child: BlocBuilder<WeatherBloc, WeatherState>(
+          listener: (context, state) {
+            if (state is ErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
           builder: (context, state) {
             if (state is InitialState) {
               return buildInitialInput();
@@ -55,7 +60,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Text(
-          // Display the temperature with 1 decimal place
           "${weather.temperatureInCelsius.toStringAsFixed(1)} °C",
           style: TextStyle(fontSize: 80),
         ),
