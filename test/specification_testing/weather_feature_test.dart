@@ -39,9 +39,7 @@ main() {
       blocTest(
         '1. A partir de uma string vazia, retorna erro',
         build: () => WeatherBloc(),
-        act: (WeatherBloc bloc) {
-          (bloc).add(GetWeather(''));
-        },
+        act: (WeatherBloc bloc) => bloc.add(GetWeather('')),
         expect: () => [
           isA<LoadingState>(),
           ErrorState('Erro: Campo nome da cidade não foi preenchido')
@@ -50,9 +48,7 @@ main() {
       blocTest(
         '2. A partir de uma string nula, retorna erro',
         build: () => WeatherBloc(),
-        act: (WeatherBloc bloc) {
-          (bloc).add(GetWeather(null));
-        },
+        act: (WeatherBloc bloc) => bloc.add(GetWeather(null)),
         expect: () => [
           isA<LoadingState>(),
           ErrorState('Erro: Campo nome da cidade não foi preenchido')
