@@ -39,8 +39,8 @@ main() {
       blocTest(
         '1. A partir de uma string vazia, retorna erro',
         build: () => WeatherBloc(),
-        act: (bloc) {
-          (bloc as WeatherBloc).add(GetWeather(''));
+        act: (WeatherBloc bloc) {
+          (bloc).add(GetWeather(''));
         },
         expect: () => [
           isA<LoadingState>(),
@@ -50,8 +50,8 @@ main() {
       blocTest(
         '2. A partir de uma string nula, retorna erro',
         build: () => WeatherBloc(),
-        act: (bloc) {
-          (bloc as WeatherBloc).add(GetWeather(null));
+        act: (WeatherBloc bloc) {
+          (bloc).add(GetWeather(null));
         },
         expect: () => [
           isA<LoadingState>(),
