@@ -6,7 +6,7 @@ abstract class WeatherEvent {
 }
 
 class GetWeather extends WeatherEvent {
-  final cityName;
+  final String? cityName;
   const GetWeather(this.cityName);
 
   @override
